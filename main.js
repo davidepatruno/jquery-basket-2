@@ -19,8 +19,9 @@ for (var i = 0; i < 100; i++) {
 
     giocatori.push(nomeGiocatore);
     console.log(nomeGiocatore);
+
     $(document).ready(function(){
-      $('.codiceGiocatore').text(codiceGiocatore);
+      $('.template .giocatore').text(codiceGiocatore);
     });
 
 };
