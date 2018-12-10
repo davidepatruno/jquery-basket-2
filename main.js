@@ -20,9 +20,10 @@ for (var i = 0; i < 100; i++) {
     giocatori.push(nomeGiocatore);
     console.log(nomeGiocatore);
 
-    $(document).ready(function(){
-      $('.template .giocatore').text(codiceGiocatore);
-    });
+
+    var codgiocatoretemp = $('.template .giocatore_template').clone();
+    codgiocatoretemp.text(codiceGiocatore);
+    $('.giocatore').append(codgiocatoretemp);
 
 };
 
