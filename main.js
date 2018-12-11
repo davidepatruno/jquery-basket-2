@@ -18,21 +18,40 @@ for (var i = 0; i < 100; i++) {
     }
 
     giocatori.push(nomeGiocatore);
-    console.log(nomeGiocatore);
-
-
-    var codgiocatoretemp = $('.template .giocatore_template').clone();
-    codgiocatoretemp.text(codiceGiocatore);
-    $('.giocatore').append(codgiocatoretemp);
-
-    var templatescheda = $('.template .template_scheda').clone();
-    var scheda_da_inserire = $('.template .template_scheda .scheda_giocatore');
-    scheda_da_inserire.children('.punti_Segnati').text(puntiFatti);
-    scheda_da_inserire.children('.num_rimbalzi').text(rimbalzi);
-    // $('.scheda_giocatore').append(scheda_da_inserire);
-    $('.schede_wrapper').append(templatescheda);
-
+    // console.log(nomeGiocatore);
 };
+
+$(document).ready(function(){
+  for (var i = 0; i < giocatori.length; i++) {
+    var playercode = giocatori[i].codice_Giocatore;
+    // var divgiocatore = '<div class="playercode">' + codicegiocatore + '</div>';
+
+    // console.log("scrivo l'oggetto");
+    // console.log(giocatori[i].codice_Giocatore);
+    var source = $('#playercode_template').html();
+     //document.getElementById("playercode_template").innerHTML;
+    var template = Handlebars.compile(source);
+    var context = {codicegiocatore : playercode};
+    var html    = template(context);
+    $(".codici_player").append(html);
+  }
+  $('.playercode').click(function(){
+    var thisCode = $(this).text();
+    for (var i = 0; i < giocatori.length; i++) {
+      var playercode = giocatori[i].codice_Giocatore;
+      if (thisCode == playercode) {
+        console.log(giocatori[i]);
+        var source = $('#stats_template').html();
+         //document.getElementById("playercode_template").innerHTML;
+        var template = Handlebars.compile(source);
+        var context = {code : giocatori[i].codice_Giocatore, bounce : giocatori[i].num_Rimbalzi, score : giocatori[i].punti_Segnati, fault : giocatori[i].falli, shoots2 : giocatori[i].successo_duePunti, shoots3 : giocatori[i].successo_trePunti };
+        var html    = template(context);
+        $(".stats_wrapper").html(html);
+      }
+    }
+    console.log($(this).text());
+  })
+})
 
 
 
@@ -53,3 +72,19 @@ function creaCodice(){
 
     return codePlayer;
 }
+
+
+
+
+
+
+// var codgiocatoretemp = $('.template .giocatore_template').clone();
+// codgiocatoretemp.text(codiceGiocatore);
+// $('.giocatore').append(codgiocatoretemp);
+//
+// var templatescheda = $('.template .template_scheda').clone();
+// var scheda_da_inserire = $('.template .template_scheda .scheda_giocatore').clone();
+// scheda_da_inserire.children('.punti_Segnati').text(puntiFatti);
+// scheda_da_inserire.children('.num_rimbalzi').text(rimbalzi);
+// // $('.scheda_giocatore').append(scheda_da_inserire);
+// $('.schede_wrapper').append(templatescheda);
